@@ -1,70 +1,114 @@
-// Vanilla javascript
-console.log(document.getElementById('main').innerHTML);
-console.log(document.getElementsByClassName('error'));
-
 // jQuery
+$(document).ready(function(){
 
-$(document).ready(function(){ // Inicio wrapper
-	//console.log($('#main'));
-	var htmlContentDiv = $('#main').html();
-	//console.log(htmlContentDiv);
+	jQuery.fx.speeds.fast = 200;
+	jQuery.fx.speeds.blazing = 100;
+	jQuery.fx.speeds.slowmotion = 60000;
 
-	//console.log($('.error').html());
+	$.each([ 52, 97 ], function( index, value ) {
+  		console.log( index + ": " + value );
+	});
 
-	//console.log($("error p.display-1").text());
+	// Método click jQuery
+	//$('#seeSpeakers').click(function(){
+	//	console.log("Elemento clickeado");
+	//})
 
-	$("div p.display-1");
+	//$('#seeSpeakers').on("click", function(){
+	//	console.log("Elemento clickeado a través del método on");
+	//})
 
-	$("td:first").css('color', 'red');
-	$("table:last").css('color', 'red');
+	//$('#seeSpeakers').one("click", function(){
+	//	console.log("Elemento clickeado la primera vez");
+	//})
 
-	$("td:parent").fadeTo(1500, 0.3);
+	$('#seeSpeakers').click(function(event){
+		event.preventDefault();
+		//console.log("Elementos clickeado a través de un bind");
+	})
 
-	$('#main').html("<span>Hoy es Sábado</span>");
-	//console.log($('#main').text('Hoy es viernes'));
-	$('#main').attr("class", "container");
-	$('#main').attr("data-ejemplo", "ipad");
+	$('#seeSpeakers').bind("click", function(event){
+		console.log('Event type', event.type);
+		console.log('pagex', event.pageX);
+		console.log('pagey type', event.pageY);
+		console.log('Target', event.target.innerHTML);
 
-	$("form input[type='text']").val('Ingrese aquí un nombre');
-	$("form input[type='password']").val('Ingrese aquí un password');
+	})
 
-	//$(".inner").append("<p>Test</p>");
-	//$( "<p>Test</p>" ).appendTo( ".inner" );
+	/* $('#seeSpeakers').hover(
+		function () {
+        	$(this).css({"background-color":"red"});
+        }, 
+        function () {   
+        	$(this).css({"background-color":"blue"});
+        }
+  	);*/
 
-	$( "<p>Test</p>").insertAfter( ".inner" );
-	$( "<p>Test Antes</p>" ).insertBefore( ".inner" );
-	$( ".inner" ).prepend( "<p>Test prepend</p>" );
+	$('#hide').click(function(){
+		$("#speakers").animate({ 
+	      width: "100",
+	      opacity: 1.0,
+	      marginLeft: "0in",
+	      fontSize: "100%", 
+	      borderWidth: "1px"
+        }, 1500 );
+		//$('#speakers').slideUp("slow", function(){});
+	});
 
-	$('#main').remove();
+	$('#show').click(function(){
+        $("#speakers").animate({ 
+	      width: "70%",
+	      opacity: 0.4,
+	      marginLeft: "0.6in",
+	      fontSize: "3em", 
+	      borderWidth: "10px"
+        }, 1500 );
+	});
 
-	var parrafo = $("<p>This is a new paragraph</p>");
-	$("#main").append(parrafo);
+	$('#toogleSpeakers').click(function(){
+		$('#speakers').toggle('slowmotion', function(){
+		
+		});
+	})
 
-	var headings = $( "h1" );
-	console.log(headings);
+	$(document).click(function(){
+		//$('div#about img').toggle("bounce", { times: 3 }, "slow");
+		$('div#about img').toggle("clip");
+	})
+
+	var options = {
+		interval: 2000, 
+		ride: "carousel", 
+		pause: "false"
+	}
+
+	$('.carousel').carousel(options);
+	/* $('#carouselUp').click(function(){
+		var options = {
+			interval: 2000
+		}
+		
+		console.log('Clicked');
+	})*/
+		
+	
+}); // Fin 
 
 
 
+// Extracted from: https://api.jquery.com/jQuery.each/
+var arr = [ "one", "two", "three", "four", "five" ];
 
-
-
-	//$("<li>Menu 0</li>").prependTo("li.first"); // Agrega luego de ..
-
+// objeto javascript
+var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
  
-
-	// Selectores
-	// Selector ID $(#element)
-	// Selector clase $(.element)
-	// Selector compuestos $(.element #element div)
-	// Selector Index Base $(:eq(x))
-	// Selector :lt
-	// Selector :gt
-	// Selector :first
-	// Selector :last
-	// Selector :even
-	// Selector :odd
-	// Selector
-
-}); // Fin wrapper
-
-console.log('Success');
+jQuery.each( arr, function( i, val ) {
+  $( "#" + val ).text( "Mine is " + val + "." );
+ 
+  // Will stop running after "three"
+  return ( val !== "three" );
+});
+ 
+jQuery.each( obj, function( i, val ) {
+  $( "#" + i ).append( document.createTextNode( " - " + val ) );
+});
